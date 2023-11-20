@@ -1,0 +1,13 @@
+const fetch = require('node-fetch');
+
+const BASE_URL = 'http://localhost:3000';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    // Fetch expenses and income data from the server
+    const expensesData = await fetch(`<span class="math-inline">\{BASE\_URL\}/expenses\`\);
+const incomeData \= await fetch\(\`</span>{BASE_URL}/income`);
+
+    const expenses = await expensesData.json();
+    const income = await incomeData.json();
+
+    // Populate expense table

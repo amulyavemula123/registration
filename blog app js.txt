@@ -1,0 +1,33 @@
+const express = require('express');
+const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const app = express();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(express.static('public'));
+
+// Connect to MongoDB
+mongoose.connect('mongodb://localhost:27017/blog', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const db = mongoose.connection;
+db.on('error', console.error.bind(console, 'MongoDB connection error:'));
+db.once('open', function() {
+    console.log('Connected to MongoDB database');
+});
+
+const PostSchema = new mongoose.Schema({
+    title: String,
+    content: String
+});
+
+const Post = mongoose.model('Post', PostSchema);
+
+app.get('/posts', async (req, res) => {
+    try {
+        const posts = await Post.find({});
+        res.send(posts);
+    } catch (err) {
+        console.error(err);
+        res.status(500).send

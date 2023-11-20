@@ -1,0 +1,10 @@
+const fetch = require('node-fetch');
+
+const BASE_URL = 'http://localhost:3000';
+
+document.addEventListener('DOMContentLoaded', async () => {
+    try {
+        const posts = await fetch(`${BASE_URL}/posts`).then(response => response.json());
+        const postsHTML = posts.map(post => `
+            <div class="post">
+                <
